@@ -10,20 +10,40 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/css/index.css" />
     <link rel="stylesheet" href="/css/nav.css" />
+    <title>Auto Form Filler</title>
   </head>
   <body>
-    <nav class="">
+    <nav>
       <h1>Auto Form Filler</h1>
-      <div id="profile-icon" class=""></div>
+      <div id="profile-icon" class="profile-icon"></div>
     </nav>
 
     <main>
-      <h1>Your LinkedIn Account</h1>
-      <p>Name: <span id="accountName">Loading...</span></p>
+      <div class="welcome-section">
+        <h3>Welcome!</h3>
+        <p>Your smart solution for easy job applications.</p>
+      </div>
+      <div id="features" class="features">
+        <h5>Please select a feature:</h5>
+        <a href="/history.html" class="feature-link">📜 History</a>
+        <a href="/settings.html" class="feature-link">⚙️ Settings</a>
+        <a href="/profiles.html" class="feature-link">👤 Profiles</a>
+        <a href="/mapper.html" class="feature-link">📝 Form Mapper</a>
+        <a href="/export.html" class="feature-link">📤 Export/Import</a>
+        <a href="/dashboard.html" class="feature-link">📊 Dashboard</a>
+      </div>
     </main>
 
-    <script src="index.js"></script>
+    <footer>
+      <p>© 2024 Auto Form Filler | All Rights Reserved</p>
+    </footer>
+
+    <script src="/js/index.js"></script>
   </body>
 </html>
