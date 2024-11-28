@@ -3,20 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="css//index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+      integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <title>Auto Form Filler</title>
   </head>
   <body>
-    <header>
-      <h1>
-        <span class="block"> Hey! </span>
-        Welcome To Smart Form Filler
-      </h1>
-    </header>
-    <span
-      >Please select account below, if you don't have one create an
-      account.</span
-    >
-    s
+    <nav>
+      <h1>Auto Form Filler</h1>
+      <button id="switch-profile">
+        <a href="account.html">
+          Switch profile
+        </a>
+      </button>
+    </nav>
+
+    <main>
+      <div class="welcome-section">
+        <h3>Welcome!</h3>
+        <p>Your smart solution for easy job applications.</p>
+      </div>
+      <div id="features" class="features">
+        <h5>Please select a feature:</h5>
+        <a href="/history.html" class="feature-link">📜 History</a>
+        <a href="/settings.html" class="feature-link">⚙️ Settings</a>
+        <a href="/profiles.html" class="feature-link">👤 Profiles</a>
+        <a href="/mapper.html" class="feature-link">📝 Form Mapper</a>
+        <a href="/export.html" class="feature-link">📤 Export/Import</a>
+        <a href="/dashboard.html" class="feature-link">📊 Dashboard</a>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2024 Auto Form Filler | All Rights Reserved</p>
+    </footer>
+
+    <script src="/js/index.js"></script>
   </body>
 </html>
