@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Form Filler</title>
+    <link rel="stylesheet" href="css/account.css" />
+  </head>
+  <body>
+    <header>
+      <h1>
+        <span class="block">Hey!</span>
+        Welcome To Smart Form Filler
+      </h1>
+    </header>
+
+    <main>
+      <section>
+        <div id="account-selection">
+          <select id="accounts-dropdown" class="styled-select">
+            <option value="" disabled selected>-- Select an account --</option>
+          </select>
+          <button id="proceed-button" disabled>Proceed</button>
+        </div>
+
+        <form id="add-account-form">
+          <h2>Add New Account</h2>
+          <label for="linkedinId">LinkedIn URL:</label>
+          <input
+            type="text"
+            id="linkedinId"
+            name="linkedinId"
+            placeholder="LinkedIn Account URL"
+            required
+          />
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Account Name"
+            required
+          />
+          <button type="submit">Add Account</button>
+        </form>
+
+        <p id="status-message"></p>
+      </section>
+    </main>
+
+    <script src="js/account.js" defer></script>
+  </body>
+</html>
