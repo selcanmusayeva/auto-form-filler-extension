@@ -1,16 +1,3 @@
-// const nameDiv = document.querySelector(".npiJhzMllNjLdTFwgmXZfuEGFbcQxAxMiJE");
-// const nameh1 = nameDiv.querySelector("h1");
-
-// if (nameh1) {
-//   const accountName = nameh1.textContent.trim();
-
-//   chrome.runtime.sendMessage({ action: "SET_ACCOUNT_NAME", accountName });
-// } else {
-//   console.error(
-//     "Account name not found. Make sure this is a LinkedIn profile page."
-//   );
-// }
-
 const degrees = [
   "associate's degree",
   "bachelor's degree",
@@ -21,36 +8,45 @@ const degrees = [
   "doctor of law",
 ];
 
-window.onload = function () {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "SCRAPE_DATA") {
+    scrapeData().then((response) => {
+      sendResponse({ success: true, data: response });
+    });
+  }
+  return true;
+});
+
+async function scrapeData() {
   const currentUrl = window.location.href;
 
-  const profileUrlRegex =
-    /^https:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/;
+  const activeAccount = await chrome.runtime.sendMessage({
+    action: "getActiveAccount",
+  });
 
-  if (profileUrlRegex.test(currentUrl)) {
-    setTimeout(() => {
-      const profileName = document.querySelector("h1")?.textContent;
+  console.log(activeAccount);
 
-      // experience
-      const experiences = getExperienceList();
+  if (activeAccount.linkedinId && activeAccount.linkedinId == currentUrl) {
+    const profileName = document.querySelector("h1")?.textContent;
 
-      const educations = getEducationList();
+    const experinces = getExperienceList();
 
-      const skills = getSkillsList();
+    const educations = getEducationList();
 
-      // final data
-      const linkedinInformation = {
-        fullName: profileName ?? "",
-        education: educations,
-        experience: experiences,
-        skills: skills,
-      };
+    const skills = getSkillsList();
 
-      console.log(linkedinInformation);
-    }, 3000);
+    const linkedinInformation = {
+      fullName: profileName ?? "",
+      education: educations,
+      experinece: experinces,
+      skills: skills,
+    };
+
+    console.log(linkedinInformation);
+
+    return linkedinInformation;
   }
-};
-
+}
 function getSkillsList() {
   const skills = [];
 
