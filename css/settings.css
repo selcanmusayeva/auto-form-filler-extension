@@ -2,8 +2,8 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: #f4f4f9;
   color: #333;
-  min-width: 20rem;
-  min-height: 37rem;
+  width: 22rem;
+  height: 37rem;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@ header {
 }
 
 main {
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,6 +46,7 @@ textarea {
 
 button {
   padding: 0.5rem 1rem;
+  width: 100%;
   background-color: #007bff;
   color: white;
   border: none;

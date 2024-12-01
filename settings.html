@@ -12,21 +12,26 @@
     </header>
 
     <main>
-      <form id="profile-form">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" />
+      <section>
+        <button style="margin-bottom: 1rem" id="scrapeButton">
+          Scrape Data
+        </button>
+        <form id="profile-form">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" />
 
-        <label for="experience">Experience:</label>
-        <textarea id="experience" name="experience"></textarea>
+          <label for="experience">Experience:</label>
+          <div id="experience-accordion"></div>
 
-        <label for="education">Education:</label>
-        <textarea id="education" name="education"></textarea>
+          <label for="education">Education:</label>
+          <textarea id="education" name="education"></textarea>
 
-        <label for="skills">Skills:</label>
-        <textarea id="skills" name="skills"></textarea>
+          <label for="skills">Skills:</label>
+          <textarea id="skills" name="skills"></textarea>
 
-        <button type="button" id="save-button">Save</button>
-      </form>
+          <button type="button" id="save-button">Save</button>
+        </form>
+      </section>
     </main>
     <script src="/js/settings.js"></script>
   </body>
