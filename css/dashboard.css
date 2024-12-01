@@ -1,0 +1,97 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form-container input,
+.form-container select,
+.form-container button {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    min-width: 150px;
+}
+
+.form-container button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
+.form-container button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #007BFF;
+    color: white;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.actions button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.actions .update {
+    background-color: #28a745;
+    color: white;
+}
+
+.actions .update:hover {
+    background-color: #218838;
+}
+
+.actions .delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.actions .delete:hover {
+    background-color: #c82333;
+}
