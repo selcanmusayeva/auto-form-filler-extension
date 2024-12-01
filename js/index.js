@@ -1,12 +1,30 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//     const accountNameElement = document.getElementById("accountName");
+const getAccount = async () => {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.get("activeAccount", (result) => {
+        if (chrome.runtime.lastError) {
+          reject(chrome.runtime.lastError.message);
+        } else {
+          resolve(result.activeAccount || "");
+        }
+      });
+    });
+  };
   
-//     chrome.storage.local.get("accountName", (data) => {
-//       if (data.accountName) {
-//         accountNameElement.textContent = data.accountName;
-//       } else {
-//         accountNameElement.textContent = "Not found";
-//       }
-//     });
-//   });
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const activeAccount = await getAccount();
+  
+      if (!activeAccount) {
+        window.location.href = "account.html";
+      } else {
+        const accountNameElement = document.querySelector("#account-name");
+        if (accountNameElement) {
+          accountNameElement.textContent = activeAccount.name;
+        }
+        console.log("Active Account:", activeAccount);
+      }
+    } catch (error) {
+      console.error("Error checking active account:", error);
+    }
+  });
   
