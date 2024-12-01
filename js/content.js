@@ -1,16 +1,3 @@
-// const nameDiv = document.querySelector(".npiJhzMllNjLdTFwgmXZfuEGFbcQxAxMiJE");
-// const nameh1 = nameDiv.querySelector("h1");
-
-// if (nameh1) {
-//   const accountName = nameh1.textContent.trim();
-
-//   chrome.runtime.sendMessage({ action: "SET_ACCOUNT_NAME", accountName });
-// } else {
-//   console.error(
-//     "Account name not found. Make sure this is a LinkedIn profile page."
-//   );
-// }
-
 const degrees = [
   "associate's degree",
   "bachelor's degree",
@@ -21,39 +8,48 @@ const degrees = [
   "doctor of law",
 ];
 
-window.onload = function () {
+// content.js
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "SCRAPE_DATA") {
+    console.log("Start scrapping");
+    scrapeData().then((response) => {
+      sendResponse({ success: response ? true : false, data: response });
+    });
+  }
+  return true;
+});
+
+async function scrapeData() {
   const currentUrl = window.location.href;
 
-  const profileUrlRegex =
-    /^https:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/;
+  const activeAccount = await chrome.runtime.sendMessage({
+    action: "GET_ACTIVE_ACCOUNT",
+  });
 
-  if (profileUrlRegex.test(currentUrl)) {
-    setTimeout(() => {
-      const profileName = document.querySelector("h1")?.textContent;
+  console.log(activeAccount);
 
-      // experience
-      const experiences = getExperienceList();
+  if (activeAccount.linkedinId && activeAccount.linkedinId === currentUrl) {
+    const profileName = document.querySelector("h1")?.textContent;
 
-      const educations = getEducationList();
+    const experiences = getExperienceList();
+    const educations = getEducationList();
+    const skills = getSkillsList();
 
-      const skills = getSkillsList();
+    const linkedinInformation = {
+      fullName: profileName ?? "",
+      education: educations,
+      experience: experiences,
+      skills: skills,
+    };
 
-      // final data
-      const linkedinInformation = {
-        fullName: profileName ?? "",
-        education: educations,
-        experience: experiences,
-        skills: skills,
-      };
+    console.log(linkedinInformation);
 
-      console.log(linkedinInformation);
-    }, 3000);
+    return linkedinInformation;
   }
-};
+}
 
 function getSkillsList() {
   const skills = [];
-
   const skillsElements = document
     .querySelector("#skills")
     ?.parentElement?.lastElementChild?.querySelector("ul")
@@ -74,7 +70,6 @@ function getSkillsList() {
 
 function getEducationList() {
   const educations = [];
-
   const educationElements =
     document.querySelector("#education")?.parentElement?.lastElementChild
       ?.firstElementChild;
@@ -196,12 +191,12 @@ function getExperienceList() {
           title: title ?? "",
           description: description ?? undefined,
           endDateMonth:
-            endDates?.[0] == "Present"
+            endDates?.[0] === "Present"
               ? undefined
               : endDates?.[0].split(" ")[0],
           location: location,
           endDateYear:
-            endDates?.[0] == "Present"
+            endDates?.[0] === "Present"
               ? undefined
               : endDates?.[0].split(" ")[1],
           locationType: locationType,
@@ -245,8 +240,8 @@ function getExperienceList() {
         title,
         startDateMonth: startDate?.split(" ")[0] ?? "",
         startDateYear: startDate?.split(" ")[1] ?? "",
-        endDateMonth: endDate == "Present" ? undefined : endDate?.split(" ")[0],
-        endDateYear: endDate == "Present" ? undefined : endDate?.split(" ")[1],
+        endDateMonth: endDate === "Present" ? undefined : endDate?.split(" ")[0],
+        endDateYear: endDate === "Present" ? undefined : endDate?.split(" ")[1],
         duration: duration ?? "",
         location,
         locationType,
