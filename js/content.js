@@ -253,3 +253,68 @@ function getExperienceList() {
   });
   return experiences;
 }
+
+
+
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "FILL_FORM") {
+      fillForm(linkedInData);
+      sendResponse({ status: "Form filling in progress" });
+  }
+});
+
+function fillForm(data) {
+  const fieldMapping = {
+      fullName: 'input[name*="name"], input[id*="name"]',
+      personalSummary: 'textarea[name*="summary"], textarea[id*="summary"], textarea[name*="about"], textarea[id*="about"]',
+      skills: 'input[name*="skill"], textarea[name*="skill"]',
+  };
+
+  for (const key in fieldMapping) {
+      if (data.hasOwnProperty(key)) {
+          const selectors = fieldMapping[key];
+          const input = document.querySelector(selectors);
+          if (input) {
+              const value = data[key];
+              if (Array.isArray(value)) {
+                  input.value = value.join(', ');
+              } else {
+                  input.value = value || '';
+              }
+          }
+      }
+  }
+
+  fillEducation(data.education);
+  fillExperience(data.experience);
+}
+
+function fillEducation(educationData) {
+  educationData.forEach((edu, index) => {
+      const section = document.querySelectorAll('.education-section')[index];
+      if (section) {
+          fillSectionFields(section, edu);
+      }
+  });
+}
+
+function fillExperience(experienceData) {
+  experienceData.forEach((exp, index) => {
+      const section = document.querySelectorAll('.experience-section')[index];
+      if (section) {
+          fillSectionFields(section, exp);
+      }
+  });
+}
+
+function fillSectionFields(section, dataObject) {
+  for (const key in dataObject) {
+      if (dataObject.hasOwnProperty(key)) {
+          const input = section.querySelector(`input[name*="${key}"], textarea[name*="${key}"]`);
+          if (input) {
+              input.value = dataObject[key];
+          }
+      }
+  }
+}
