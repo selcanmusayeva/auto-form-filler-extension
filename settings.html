@@ -3,11 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="/css/settings.css" />
     <title>Settings</title>
   </head>
   <body>
     <header>
+      <a href="index.html">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
       <h1>Settings</h1>
     </header>
 
@@ -20,19 +30,41 @@
           <label for="name">Name:</label>
           <input type="text" id="name" name="name" />
 
-          <label for="experience">Experience:</label>
+          <label>Experience:</label>
           <div id="experience-accordion"></div>
+          <button type="button" id="add-experience-button">
+            Add Experience
+          </button>
 
-          <label for="education">Education:</label>
-          <textarea id="education" name="education"></textarea>
+          <label>Education:</label>
+          <div id="education-accordion"></div>
+          <button type="button" id="add-education-button">Add Education</button>
 
-          <label for="skills">Skills:</label>
+          <label>Certificates:</label>
+          <div id="certificates-accordion"></div>
+          <button type="button" id="add-certificate-button">
+            Add Certificate
+          </button>
+
+          <label>Portfolio Links:</label>
+          <div id="portfolio-links-accordion"></div>
+          <button type="button" id="add-portfolio-link-button">
+            Add Portfolio Link
+          </button>
+
+          <label for="personal-summary">Personal Summary:</label>
+          <textarea id="personal-summary" name="personal-summary"></textarea>
+
+          <label for="skills">Skills (separate with comma):</label>
           <textarea id="skills" name="skills"></textarea>
 
-          <button type="button" id="save-button">Save</button>
+          <span class="hidden" id="success-message">Saved Successfully</span>
+          <span class="hidden" id="fail-message">Failed to Save</span>
+          <button type="submit" id="save-button">Save</button>
         </form>
       </section>
     </main>
     <script src="/js/settings.js"></script>
+    <!-- <script src="/js/settings.js"></script> -->
   </body>
 </html>
