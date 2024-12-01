@@ -8,10 +8,12 @@ const degrees = [
   "doctor of law",
 ];
 
+// content.js
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "SCRAPE_DATA") {
+    console.log("Start scrapping");
     scrapeData().then((response) => {
-      sendResponse({ success: true, data: response });
+      sendResponse({ success: response ? true : false, data: response });
     });
   }
   return true;
@@ -21,24 +23,22 @@ async function scrapeData() {
   const currentUrl = window.location.href;
 
   const activeAccount = await chrome.runtime.sendMessage({
-    action: "getActiveAccount",
+    action: "GET_ACTIVE_ACCOUNT",
   });
 
   console.log(activeAccount);
 
-  if (activeAccount.linkedinId && activeAccount.linkedinId == currentUrl) {
+  if (activeAccount.linkedinId && activeAccount.linkedinId === currentUrl) {
     const profileName = document.querySelector("h1")?.textContent;
 
-    const experinces = getExperienceList();
-
+    const experiences = getExperienceList();
     const educations = getEducationList();
-
     const skills = getSkillsList();
 
     const linkedinInformation = {
       fullName: profileName ?? "",
       education: educations,
-      experinece: experinces,
+      experience: experiences,
       skills: skills,
     };
 
@@ -47,9 +47,9 @@ async function scrapeData() {
     return linkedinInformation;
   }
 }
+
 function getSkillsList() {
   const skills = [];
-
   const skillsElements = document
     .querySelector("#skills")
     ?.parentElement?.lastElementChild?.querySelector("ul")
@@ -70,7 +70,6 @@ function getSkillsList() {
 
 function getEducationList() {
   const educations = [];
-
   const educationElements =
     document.querySelector("#education")?.parentElement?.lastElementChild
       ?.firstElementChild;
@@ -192,12 +191,12 @@ function getExperienceList() {
           title: title ?? "",
           description: description ?? undefined,
           endDateMonth:
-            endDates?.[0] == "Present"
+            endDates?.[0] === "Present"
               ? undefined
               : endDates?.[0].split(" ")[0],
           location: location,
           endDateYear:
-            endDates?.[0] == "Present"
+            endDates?.[0] === "Present"
               ? undefined
               : endDates?.[0].split(" ")[1],
           locationType: locationType,
@@ -241,8 +240,8 @@ function getExperienceList() {
         title,
         startDateMonth: startDate?.split(" ")[0] ?? "",
         startDateYear: startDate?.split(" ")[1] ?? "",
-        endDateMonth: endDate == "Present" ? undefined : endDate?.split(" ")[0],
-        endDateYear: endDate == "Present" ? undefined : endDate?.split(" ")[1],
+        endDateMonth: endDate === "Present" ? undefined : endDate?.split(" ")[0],
+        endDateYear: endDate === "Present" ? undefined : endDate?.split(" ")[1],
         duration: duration ?? "",
         location,
         locationType,
